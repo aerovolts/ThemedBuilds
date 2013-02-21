@@ -1,0 +1,14 @@
+name: ThemedBuilds
+main: com.meggawatts.themed.ThemedBuilds
+version: 0.1
+description: ThemedBuild plugin
+author: meggawatts
+permissions:
+  themed.admin.create:
+    default: op
+  themed.admin.break:
+    default: op
+commands:
+   tb:
+      description: PVP
+      usage: /<command> [create] [name]
