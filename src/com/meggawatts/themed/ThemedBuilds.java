@@ -39,7 +39,6 @@ public class ThemedBuilds extends JavaPlugin implements Listener {
         } catch (Exception e) {
             Util.severe("Error initiating ThemedBuild database connection, disabling plugin");
             pm.disablePlugin(this);
-            return;
         }
     }
 
