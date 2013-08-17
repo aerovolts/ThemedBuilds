@@ -1,4 +1,4 @@
-package com.meggawatts.themed.database;
+package co.mcme.themed.database;
 
 /****************************************************************
  * Licensed to the Apache Software Foundation (ASF) under one   *
@@ -19,7 +19,7 @@ package com.meggawatts.themed.database;
  * under the License.                                           *
  ****************************************************************/
 
-import com.meggawatts.themed.util.Util;
+import co.mcme.themed.util.Util;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;

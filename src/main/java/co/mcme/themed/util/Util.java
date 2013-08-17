@@ -1,4 +1,4 @@
-package com.meggawatts.themed.util;
+package co.mcme.themed.util;
 
 import java.util.logging.Logger;
 

@@ -1,4 +1,4 @@
-package com.meggawatts.themed.database;
+package co.mcme.themed.database;
 
 import java.sql.Array;
 import java.sql.Blob;

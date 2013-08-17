@@ -1,6 +1,6 @@
-package com.meggawatts.themed.database;
+package co.mcme.themed.database;
 
-import com.meggawatts.themed.util.Util;
+import co.mcme.themed.util.Util;
 import java.io.Closeable;
 import java.sql.Connection;
 import java.sql.DriverManager;

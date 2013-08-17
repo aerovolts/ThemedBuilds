@@ -1,9 +1,9 @@
-package com.meggawatts.themed;
+package co.mcme.themed;
 
-import com.meggawatts.themed.database.DataManager;
-import com.meggawatts.themed.util.Config;
-import com.meggawatts.themed.util.SignUtils;
-import com.meggawatts.themed.util.Util;
+import co.mcme.themed.database.DataManager;
+import co.mcme.themed.util.Config;
+import co.mcme.themed.util.SignUtils;
+import co.mcme.themed.util.Util;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;

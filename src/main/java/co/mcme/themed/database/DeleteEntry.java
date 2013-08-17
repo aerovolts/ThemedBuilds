@@ -1,8 +1,8 @@
-package com.meggawatts.themed.database;
+package co.mcme.themed.database;
 
-import com.meggawatts.themed.database.entry.TBEntry;
-import com.meggawatts.themed.util.Config;
-import com.meggawatts.themed.util.Util;
+import co.mcme.themed.database.entry.TBEntry;
+import co.mcme.themed.util.Config;
+import co.mcme.themed.util.Util;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

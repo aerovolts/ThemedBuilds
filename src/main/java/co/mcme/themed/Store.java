@@ -1,7 +1,7 @@
-package com.meggawatts.themed;
+package co.mcme.themed;
 
-import com.meggawatts.themed.database.DataManager;
-import com.meggawatts.themed.database.entry.TBEntry;
+import co.mcme.themed.database.DataManager;
+import co.mcme.themed.database.entry.TBEntry;
 import org.bukkit.entity.Player;
 
 public class Store {

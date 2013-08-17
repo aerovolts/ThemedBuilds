@@ -1,4 +1,4 @@
-package com.meggawatts.themed.database.entry;
+package co.mcme.themed.database.entry;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
