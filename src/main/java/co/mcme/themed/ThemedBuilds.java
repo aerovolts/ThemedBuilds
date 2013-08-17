@@ -88,6 +88,8 @@ public class ThemedBuilds extends JavaPlugin implements Listener {
         } else {
             handleMain(block, p, method, z);
         }
+        p.sendMessage(ChatColor.GRAY + "Make sure to check out the forum topic located here: ");
+        p.sendMessage(ChatColor.AQUA + "http://mcme.co/f?t=" + getConfig().get("builds.current.topic"));
     }
 
     @Override
