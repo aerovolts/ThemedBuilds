@@ -1,6 +1,7 @@
-name: ThemedBuilds
-main: com.meggawatts.themed.ThemedBuilds
-version: 0.1
+name: ${project.artifactId}
+main: com.mcme.themed.ThemedBuilds
+version: ${project.version}
+website: ${project.url}
 description: ThemedBuild plugin
 author: meggawatts
 permissions:
@@ -10,5 +11,7 @@ permissions:
     default: op
 commands:
    tb:
-      description: PVP
-      usage: /<command> [create] [name]
+      description: Themed Build command
+      usage: |
+             /<command> create [name]
+             /<command> settopic [topicid]
