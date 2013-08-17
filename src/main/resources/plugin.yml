@@ -1,5 +1,5 @@
 name: ${project.artifactId}
-main: com.mcme.themed.ThemedBuilds
+main: co.mcme.themed.ThemedBuilds
 version: ${project.version}
 website: ${project.url}
 description: ThemedBuild plugin
