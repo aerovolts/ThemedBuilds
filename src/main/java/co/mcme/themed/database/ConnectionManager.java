@@ -81,7 +81,7 @@ public class ConnectionManager implements Closeable {
                 count++;
             }
 
-            if (1 > poolsize) {
+            if (i > poolsize) {
                 connections.remove(conn);
                 count++;
                 conn.terminate();
