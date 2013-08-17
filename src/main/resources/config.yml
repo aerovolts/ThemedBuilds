@@ -11,6 +11,7 @@ sql:
   logdelay: 2
 builds:
   current:
+    topic: 1
     name: default
     main:
       a1:

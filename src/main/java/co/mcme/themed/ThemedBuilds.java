@@ -92,13 +92,10 @@ public class ThemedBuilds extends JavaPlugin implements Listener {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        //Identify the player
         final Player player = sender.getServer().getPlayer(sender.getName());
         if (cmd.getName().equalsIgnoreCase("tb")) {
-            //What to do when a player types /pvp
             if (args.length != 0) {
                 String method = args[0];
-                //LOCK
                 if (method.equalsIgnoreCase("create")) {
                     if (player.hasPermission("themed.admin.create")) {
                         if (args.length > 1) {
@@ -109,6 +106,17 @@ public class ThemedBuilds extends JavaPlugin implements Listener {
                             }
                         } else {
                             player.sendMessage(ChatColor.RED + "You need to provide a name for the themed-build that is at most 14 characters");
+                        }
+                    }
+                }
+                if (method.equalsIgnoreCase("settopic")) {
+                    if (player.hasPermission("themed.admin.create")) {
+                        if (args.length > 1) {
+                            if (args[1] != null) {
+                                getConfig().set("builds.current.topic", args[1]);
+                                player.sendMessage(ChatColor.GREEN + "Set the current themedbuild's topic id to " + args[1]);
+                                player.sendMessage(ChatColor.AQUA + "http://mcme.co/f?t=" + args[1]);
+                            }
                         }
                     }
                 }
