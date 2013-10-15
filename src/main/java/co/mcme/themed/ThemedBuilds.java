@@ -7,8 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ThemedBuilds extends JavaPlugin implements Listener {
 
-    public static String CurrentBuild;
-
     @Override
     public void onEnable() {
         setupConfig();
