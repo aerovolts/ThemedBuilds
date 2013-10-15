@@ -2,16 +2,10 @@ name: ${project.artifactId}
 main: co.mcme.themed.ThemedBuilds
 version: ${project.version}
 website: ${project.url}
-description: ThemedBuild plugin
+description: ${project.description}
 author: meggawatts
-permissions:
-  themed.admin.create:
-    default: op
-  themed.admin.break:
-    default: op
 commands:
    tb:
       description: Themed Build command
       usage: |
-             /<command> create [name]
-             /<command> settopic [topicid]
+             /<command>
