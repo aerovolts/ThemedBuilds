@@ -12,8 +12,34 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>spigot-repo</id>
+            <url>http://repo.md-5.net/content/groups/public/</url>
+        </repository>
+    </repositories>
+    
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.6.2-R0.2-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.12.2</version>
+        </dependency>
+    </dependencies>
+    
     <build>
-        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -41,20 +67,10 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>${project.artifactId}-${project.version}}</finalName>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org.mongodb</pattern>
-                                    <shadedPattern>co.mcme.pvp.libs.org.mongodb</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.bson</pattern>
-                                    <shadedPattern>co.mcme.pvp.libs.org.bson</shadedPattern>
-                                </relocation>
-                            </relocations>
                             <artifactSet>
                                 <excludes>
                                     <exclude>org.spigotmc:spigot-api</exclude>
+                                    <exclude>org.projectlombok:lombok</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
@@ -63,18 +79,4 @@
             </plugin>
         </plugins>
     </build>
-    <dependencies>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.6.2-R0.2-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
-    <repositories>
-        <repository>
-            <id>spigot-repo</id>
-            <url>http://repo.md-5.net/content/groups/public/</url>
-        </repository>
-    </repositories>
 </project>
