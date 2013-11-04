@@ -13,34 +13,18 @@
  *  You should have received a copy of the GNU General Public License
  *  along with ThemedBuilds.  If not, see <http://www.gnu.org/licenses/>.
  */
-package co.mcme.themed;
+package co.mcme.themed.builder;
 
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
-import org.bukkit.util.Vector;
 
-public class Lot {
+public class Builder {
 
     @Getter
     @Setter
-    private String owner;
+    private String name;
     @Getter
     @Setter
-    private Long claimed;
-    @Getter
-    @Setter
-    private String position;
-    @Getter
-    @Setter
-    private Bounds bounds;
-
-    public class Bounds {
-
-        @Getter
-        @Setter
-        private Vector nw;
-        @Getter
-        @Setter
-        private Vector se;
-    }
+    private ArrayList<ParticipatedBuild> builds;
 }
