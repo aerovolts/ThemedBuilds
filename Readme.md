@@ -1,1 +1,1 @@
-Goals===- [ ] Dynamic Lot Generation- [ ] Lot protection- [ ] Robust database that allows:- - [ ] Complete user build lookup- - [ ] Warping to specific builds- [ ] Ability to schedule start and end with automatic locking
+Goals===* Dynamic Lot Generation* Lot protection* Robust database that allows:..* Complete user build lookup..* Warping to specific builds* Ability to schedule start and end with automatic locking
