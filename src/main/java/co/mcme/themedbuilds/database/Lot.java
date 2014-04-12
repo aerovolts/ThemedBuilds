@@ -36,9 +36,6 @@ public class Lot {
     private OfflinePlayer owner;
     @Getter
     @Setter
-    private long claimTime;
-    @Getter
-    @Setter
     @JsonIgnore
     private CuboidRegion totalLotBounds;
     @Getter
@@ -52,9 +49,22 @@ public class Lot {
     @Setter
     //Northwest corner
     private Corner corner;
+    @Getter
+    @Setter
+    private boolean isLotGenerated;
 
     public Lot() {
 
+    }
+
+    public Lot(OfflinePlayer owner, int size, Corner corner) {
+        this._id = new ObjectId();
+        this.owner = owner;
+        this.size = size;
+        this.corner = corner;
+        this.isLotGenerated = false;
+        generateBounds();
+        generateDefaultLotTerrain(false);
     }
 
     public void generateBounds() {
@@ -64,11 +74,16 @@ public class Lot {
         pos1 = new Vector(corner.getX() - size, 0, corner.getZ() - size);
         pos2 = new Vector(corner.getX() + size, 30, corner.getZ() + size);
         generateBounds = new CuboidRegion(pos1, pos2);
-        for (BlockVector vec : generateBounds) {
-            ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.DIRT);
-        }
-        for (BlockVector vec : generateBounds.getWalls()) {
-            ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.BRICK);
+    }
+
+    public void generateDefaultLotTerrain(boolean force) {
+        if (!isLotGenerated || force) {
+            for (BlockVector vec : generateBounds) {
+                ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.DIRT);
+            }
+            for (BlockVector vec : generateBounds.getWalls()) {
+                ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.BRICK);
+            }
         }
     }
 }
