@@ -68,6 +68,8 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         customSerializers.addDeserializer(ObjectId.class, new ObjectIdJsonDeserializer());
         customSerializers.addSerializer(OfflinePlayer.class, new PlayerJsonSerializer());
         customSerializers.addDeserializer(OfflinePlayer.class, new PlayerJsonDeserializer());
+        customSerializers.addSerializer(Location.class, new LocationJsonSerializer());
+        customSerializers.addDeserializer(Location.class, new LocationJsonDeserializer());
         jsonMapper.registerModule(customSerializers);
     }
 
