@@ -29,7 +29,9 @@ public class ObjectIdJsonSerializer extends JsonSerializer<ObjectId> {
         if (value == null) {
             jgen.writeNull();
         } else {
-            jgen.writeString(value.toString());
+            jgen.writeStartObject();
+            jgen.writeStringField("$oid", value.toString());
+            jgen.writeEndObject();
         }
     }
 

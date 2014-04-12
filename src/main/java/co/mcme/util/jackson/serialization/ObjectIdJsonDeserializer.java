@@ -17,6 +17,7 @@ package co.mcme.util.jackson.serialization;
 
 import java.io.IOException;
 import org.bson.types.ObjectId;
+import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.DeserializationContext;
@@ -26,7 +27,9 @@ public class ObjectIdJsonDeserializer extends JsonDeserializer<ObjectId> {
 
     @Override
     public ObjectId deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-        return new ObjectId(jp.getText());
+        JsonNode root = jp.readValueAsTree();
+        root.get("$oid").asText();
+        return new ObjectId(root.get("$oid").asText());
     }
 
 }
