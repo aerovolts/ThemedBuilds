@@ -88,7 +88,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (event.getPlayer().getName().equals("meggawatts")) {
+        if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi")) {
             event.getPlayer().teleport(new Location(tbWorld, 0, 0, 0));
         }
     }
