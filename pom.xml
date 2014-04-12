@@ -37,6 +37,11 @@
             <artifactId>lombok</artifactId>
             <version>1.12.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>2.11.4</version>
+        </dependency>
     </dependencies>
     
     <build>
@@ -67,10 +72,17 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <minimizeJar>true</minimizeJar>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.codehaus</pattern>
+                                    <shadedPattern>co.mcme.themedbuilds.lib.org.codehaus</shadedPattern>
+                                </relocation>
+                            </relocations>
                             <artifactSet>
                                 <excludes>
-                                    <exclude>org.spigotmc:spigot-api</exclude>
                                     <exclude>org.projectlombok:lombok</exclude>
+                                    <exclude>org.bukkit:bukkit</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
