@@ -15,8 +15,31 @@
  */
 package co.mcme.themedbuilds;
 
+import java.io.File;
+import lombok.Getter;
+import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig;
 
 public class ThemedBuildPlugin extends JavaPlugin {
 
+    @Getter
+    static Server serverInstance;
+    @Getter
+    static ThemedBuildPlugin pluginInstance;
+    @Getter
+    static File pluginDataFolder;
+    @Getter
+    static String fileSeperator = System.getProperty("file.separator");
+    @Getter
+    static ObjectMapper jsonMapper;
+
+    @Override
+    public void onEnable() {
+        pluginInstance = this;
+        serverInstance = getServer();
+        pluginDataFolder = pluginInstance.getDataFolder();
+        jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
+    }
 }
