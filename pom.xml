@@ -76,13 +76,21 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.codehaus</pattern>
-                                    <shadedPattern>co.mcme.themedbuilds.lib.org.codehaus</shadedPattern>
+                                    <shadedPattern>co.mcme.lib.org.codehaus</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.mongodb</pattern>
+                                    <shadedPattern>co.mcme.lib.com.mongodb</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.bson</pattern>
+                                    <shadedPattern>co.mcme.lib.org.bson</shadedPattern>
                                 </relocation>
                             </relocations>
                             <artifactSet>
                                 <excludes>
                                     <exclude>org.projectlombok:lombok</exclude>
-                                    <exclude>org.bukkit:bukkit</exclude>
+                                    <exclude>org.spigotmc:spigot-api</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
