@@ -1,0 +1,6 @@
+name: ${project.artifactId}
+main: co.mcme.themedbuilds.ThemedBuildPlugin
+version: ${project.version}
+website: ${project.url}
+authors: [meggawatts]
+author: meggawatts
