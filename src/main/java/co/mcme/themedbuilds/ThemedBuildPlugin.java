@@ -15,9 +15,14 @@
  */
 package co.mcme.themedbuilds;
 
+import co.mcme.themedbuilds.database.MongoDBUtil;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
+import co.mcme.themedbuilds.utilities.ThemedLogger;
 import co.mcme.util.jackson.serialization.*;
 import java.io.File;
+import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 import org.bukkit.Location;
@@ -26,6 +31,7 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -50,15 +56,31 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     static ObjectMapper jsonMapper;
     @Getter
     static World tbWorld;
+    @Getter
+    static Configuration pluginConfig;
+    @Getter
+    static MongoDBUtil mongoUtil;
 
     @Override
     public void onEnable() {
         pluginInstance = this;
         serverInstance = getServer();
         pluginDataFolder = pluginInstance.getDataFolder();
+        setupConfig();
+        try {
+            mongoUtil = new MongoDBUtil(pluginConfig.getString("mongo.hostname", "localhost"), pluginConfig.getInt("mongo.port", 27017), pluginConfig.getString("mongo.username", "root"), (pluginConfig.getString("mongo.password", "")).toCharArray(), pluginConfig.getString("mongo.database", "themedbuilds"));
+        } catch (UnknownHostException ex) {
+            ThemedLogger.severe(ex.getMessage());
+        }
         setupJackson();
         setupWorld();
         serverInstance.getPluginManager().registerEvents(this, this);
+    }
+
+    public void setupConfig() {
+        pluginConfig = getConfig();
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 
     public void setupJackson() {
