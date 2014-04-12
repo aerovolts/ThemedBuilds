@@ -21,6 +21,7 @@ import java.io.File;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 import org.bukkit.Location;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -59,12 +60,14 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         setupWorld();
         serverInstance.getPluginManager().registerEvents(this, this);
     }
-    
+
     public void setupJackson() {
         jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
         SimpleModule customSerializers = new SimpleModule("ThemedBuildsModule", new Version(1, 0, 0, null));
         customSerializers.addSerializer(ObjectId.class, new ObjectIdJsonSerializer());
         customSerializers.addDeserializer(ObjectId.class, new ObjectIdJsonDeserializer());
+        customSerializers.addSerializer(OfflinePlayer.class, new PlayerJsonSerializer());
+        customSerializers.addDeserializer(OfflinePlayer.class, new PlayerJsonDeserializer());
         jsonMapper.registerModule(customSerializers);
     }
 
