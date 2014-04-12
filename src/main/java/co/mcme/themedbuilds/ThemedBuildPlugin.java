@@ -124,6 +124,12 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
             ChunkGenerator generator = new ThemedChunkGenerator();
             creator.generator(generator);
             tbWorld = creator.createWorld();
+            tbWorld.setPVP(false);
+            tbWorld.setSpawnFlags(false, false);
+            tbWorld.setGameRuleValue("doDaylightCycle", "false");
+            tbWorld.setGameRuleValue("doFireTick", "false");
+            tbWorld.setGameRuleValue("mobGriefing", "false");
+            tbWorld.setGameRuleValue("doMobSpawning", "false");
         } else {
             tbWorld = tbworld;
         }
