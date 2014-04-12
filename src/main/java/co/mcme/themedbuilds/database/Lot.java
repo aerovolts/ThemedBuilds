@@ -18,6 +18,7 @@ package co.mcme.themedbuilds.database;
 import co.mcme.themedbuilds.ThemedBuildPlugin;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.Vector2D;
 import com.sk89q.worldedit.regions.CuboidRegion;
 import lombok.Getter;
 import lombok.Setter;
@@ -68,22 +69,33 @@ public class Lot {
     }
 
     public void generateBounds() {
-        Vector pos1 = new Vector(corner.getX() - size, 0, corner.getZ() - size);
-        Vector pos2 = new Vector(corner.getX() + size, 0, corner.getZ() + size);
+        Vector pos1 = new Vector(corner.getX(), 0, corner.getZ());
+        Vector pos2 = new Vector(corner.getX() + size, ThemedBuildPlugin.getTbWorld().getMaxHeight(), corner.getZ() + size);
         totalLotBounds = new CuboidRegion(pos1, pos2);
-        pos1 = new Vector(corner.getX() - size, 0, corner.getZ() - size);
+        pos1 = new Vector(corner.getX(), 0, corner.getZ());
         pos2 = new Vector(corner.getX() + size, 30, corner.getZ() + size);
         generateBounds = new CuboidRegion(pos1, pos2);
     }
 
     public void generateDefaultLotTerrain(boolean force) {
         if (!isLotGenerated || force) {
+            for (BlockVector vec : totalLotBounds) {
+                ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.AIR);
+            }
             for (BlockVector vec : generateBounds) {
                 ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.DIRT);
+            }
+            for (Vector2D vec : generateBounds.asFlatRegion()) {
+                ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY(), vec.getBlockZ()).setType(Material.GRASS);
             }
             for (BlockVector vec : generateBounds.getWalls()) {
                 ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), vec.getBlockY(), vec.getBlockZ()).setType(Material.BRICK);
             }
+            for (Vector2D vec : generateBounds.asFlatRegion()) {
+                ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMinimumY(), vec.getBlockZ()).setType(Material.BEDROCK);
+            }
+            Vector vec = generateBounds.getCenter();
+            ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY(), vec.getBlockZ()).setType(Material.GLOWSTONE);
         }
     }
 }

@@ -139,12 +139,13 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi")) {
             Lot lot = new Lot();
-            lot.setSize(20);
+            lot.setSize(21);
             Corner corner = new Corner();
             corner.setX(0);
             corner.setZ(0);
             lot.setCorner(corner);
             lot.generateBounds();
+            lot.generateDefaultLotTerrain(true);
         }
     }
 }
