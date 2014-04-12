@@ -15,45 +15,19 @@
  */
 package co.mcme.themedbuilds.database;
 
-import co.mcme.themedbuilds.ThemedBuildPlugin;
-import co.mcme.themedbuilds.utilities.ThemedLogger;
-import java.io.IOException;
 import lombok.Getter;
 import lombok.Setter;
-import org.bson.types.ObjectId;
 
-public class Theme {
+public class Corner {
 
     @Getter
     @Setter
-    private ObjectId _id;
+    private int x;
     @Getter
     @Setter
-    private String name;
-    @Getter
-    @Setter
-    private boolean active;
-    @Getter
-    @Setter
-    private Corner corner;
-    @Getter
-    @Setter
-    private int lotsize;
-    @Getter
-    @Setter
-    private int numlots;
-
-    public Theme() {
-
-    }
-
-    @Override
-    public String toString() {
-        try {
-            return ThemedBuildPlugin.getJsonMapper().writeValueAsString(this);
-        } catch (IOException ex) {
-            ThemedLogger.severe(ex.getMessage());
-        }
-        return null;
+    private int z;
+    
+    public Corner() {
+        
     }
 }

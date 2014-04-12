@@ -4,3 +4,4 @@ version: ${project.version}
 website: ${project.url}
 authors: [meggawatts]
 author: meggawatts
+depend: [WorldEdit]

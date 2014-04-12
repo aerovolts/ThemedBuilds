@@ -15,6 +15,8 @@
  */
 package co.mcme.themedbuilds;
 
+import co.mcme.themedbuilds.database.Corner;
+import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
 import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
@@ -130,7 +132,13 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi")) {
-            event.getPlayer().teleport(new Location(tbWorld, 0, 0, 0));
+            Lot lot = new Lot();
+            lot.setSize(20);
+            Corner corner = new Corner();
+            corner.setX(0);
+            corner.setZ(0);
+            lot.setCorner(corner);
+            lot.generateBounds();
         }
     }
 }
