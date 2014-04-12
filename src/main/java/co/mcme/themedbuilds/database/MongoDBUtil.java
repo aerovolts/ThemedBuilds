@@ -18,6 +18,7 @@ package co.mcme.themedbuilds.database;
 import co.mcme.themedbuilds.ThemedBuildPlugin;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import com.mongodb.DB;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import java.net.UnknownHostException;
 import lombok.Getter;
@@ -28,6 +29,10 @@ public class MongoDBUtil {
     private final MongoClient client;
     @Getter
     private final DB database;
+    @Getter
+    private DBCollection themeCollection;
+    @Getter
+    private DBCollection playerCollection;
 
     public MongoDBUtil(String hostname, int port, String username, char[] password, String database) throws UnknownHostException {
         client = new MongoClient(hostname, port);
@@ -37,6 +42,15 @@ public class MongoDBUtil {
             ThemedLogger.severe("Could not authenticate to '" + hostname + ":" + port + "/" + database + "' disabling plugin.");
             ThemedBuildPlugin.getServerInstance().getPluginManager().disablePlugin(ThemedBuildPlugin.getPluginInstance());
         }
+        loadCollections();
+    }
+
+    private void loadCollections() {
+        themeCollection = database.getCollection("themelist");
+        if (themeCollection == null) {
+            themeCollection = database.createCollection("themelist", null);
+        }
+        //playerCollection = database.getCollection("");
     }
 
 }

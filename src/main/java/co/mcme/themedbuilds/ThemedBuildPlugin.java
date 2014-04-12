@@ -16,10 +16,14 @@
 package co.mcme.themedbuilds;
 
 import co.mcme.themedbuilds.database.MongoDBUtil;
+import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import co.mcme.util.jackson.serialization.*;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import java.io.File;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,16 +78,31 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         }
         setupJackson();
         setupWorld();
+        loadThemes();
         serverInstance.getPluginManager().registerEvents(this, this);
     }
 
-    public void setupConfig() {
+    private void loadThemes() {
+        DBCursor themeCursor = mongoUtil.getThemeCollection().find();
+        while (themeCursor.hasNext()) {
+            DBObject theme = themeCursor.next();
+            ThemedLogger.info(theme.toString());
+            try {
+                Theme themeZ = jsonMapper.readValue(theme.toString(), Theme.class);
+                ThemedLogger.info(themeZ.toString());
+            } catch (IOException ex) {
+                ThemedLogger.severe(ex.getMessage());
+            }
+        }
+    }
+
+    private void setupConfig() {
         pluginConfig = getConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
 
-    public void setupJackson() {
+    private void setupJackson() {
         jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
         SimpleModule customSerializers = new SimpleModule("ThemedBuildsModule", new Version(1, 0, 0, null));
         customSerializers.addSerializer(ObjectId.class, new ObjectIdJsonSerializer());
@@ -95,7 +114,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         jsonMapper.registerModule(customSerializers);
     }
 
-    public void setupWorld() {
+    private void setupWorld() {
         World tbworld = serverInstance.getWorld("themedbuilds");
         if (tbworld == null) {
             WorldCreator creator = new WorldCreator("themedbuilds");
