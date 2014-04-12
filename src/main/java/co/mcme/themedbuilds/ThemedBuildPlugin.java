@@ -16,8 +16,10 @@
 package co.mcme.themedbuilds;
 
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
+import co.mcme.util.jackson.serialization.*;
 import java.io.File;
 import lombok.Getter;
+import org.bson.types.ObjectId;
 import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.World;
@@ -28,8 +30,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
+import org.codehaus.jackson.map.module.SimpleModule;
 
 public class ThemedBuildPlugin extends JavaPlugin implements Listener {
 
@@ -51,9 +55,17 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         pluginInstance = this;
         serverInstance = getServer();
         pluginDataFolder = pluginInstance.getDataFolder();
-        jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
+        setupJackson();
         setupWorld();
         serverInstance.getPluginManager().registerEvents(this, this);
+    }
+    
+    public void setupJackson() {
+        jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
+        SimpleModule customSerializers = new SimpleModule("ThemedBuildsModule", new Version(1, 0, 0, null));
+        customSerializers.addSerializer(ObjectId.class, new ObjectIdJsonSerializer());
+        customSerializers.addDeserializer(ObjectId.class, new ObjectIdJsonDeserializer());
+        jsonMapper.registerModule(customSerializers);
     }
 
     public void setupWorld() {
