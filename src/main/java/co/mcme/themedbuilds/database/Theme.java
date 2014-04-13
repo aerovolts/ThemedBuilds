@@ -16,6 +16,7 @@
 package co.mcme.themedbuilds.database;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
+import co.mcme.themedbuilds.utilities.DatabaseUtil;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
@@ -25,6 +26,7 @@ import java.util.logging.Level;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class Theme {
 
@@ -45,6 +47,10 @@ public class Theme {
     private int numlots;
     @Getter
     @Setter
+    private ArrayList<ObjectId> lotIds;
+    @Getter
+    @Setter
+    @JsonIgnore
     private ArrayList<Lot> lots;
 
     public Theme() {
@@ -73,5 +79,13 @@ public class Theme {
 
     public DBObject toDBObject() {
         return (DBObject) JSON.parse(toString());
+    }
+
+    public ArrayList<Lot> fetchLots() {
+        lots.clear();
+        for (ObjectId id : lotIds) {
+            lots.add(DatabaseUtil.getLotById(id));
+        }
+        return lots;
     }
 }
