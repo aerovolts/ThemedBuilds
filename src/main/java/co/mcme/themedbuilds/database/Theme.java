@@ -18,6 +18,7 @@ package co.mcme.themedbuilds.database;
 import co.mcme.themedbuilds.ThemedBuildPlugin;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import java.io.IOException;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -42,6 +43,9 @@ public class Theme {
     @Getter
     @Setter
     private int numlots;
+    @Getter
+    @Setter
+    private ArrayList<Lot> lots;
 
     public Theme() {
 
