@@ -22,6 +22,7 @@ import co.mcme.themedbuilds.database.Theme;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class DatabaseUtil {
 
@@ -31,7 +32,7 @@ public class DatabaseUtil {
             Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getThemeCollection().findOne(new BasicDBObject("corner", lookup.toString())).toString(), Theme.class);
             return theme;
         } catch (IOException ex) {
-            ThemedLogger.severe(ex.getMessage());
+            ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }
@@ -42,7 +43,7 @@ public class DatabaseUtil {
             Lot lot = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getLotCollection().findOne(new BasicDBObject("corner", lookup)).toString(), Lot.class);
             return lot;
         } catch (IOException ex) {
-            ThemedLogger.severe(ex.getMessage());
+            ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }
@@ -53,7 +54,7 @@ public class DatabaseUtil {
             Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(cursor.sort(new BasicDBObject("_id", -1)).limit(1).toString(), Theme.class);
             return theme;
         } catch (IOException ex) {
-            ThemedLogger.severe(ex.getMessage());
+            ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }

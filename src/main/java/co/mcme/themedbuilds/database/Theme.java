@@ -21,6 +21,7 @@ import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -65,7 +66,7 @@ public class Theme {
         try {
             return ThemedBuildPlugin.getJsonMapper().writeValueAsString(this);
         } catch (IOException ex) {
-            ThemedLogger.severe(ex.getMessage());
+            ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;
     }

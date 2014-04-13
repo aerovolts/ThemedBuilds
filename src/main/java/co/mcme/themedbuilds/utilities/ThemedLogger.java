@@ -16,9 +16,11 @@
 package co.mcme.themedbuilds.utilities;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
+import lombok.Getter;
 
 public class ThemedLogger {
 
+    @Getter
     private static final java.util.logging.Logger log = ThemedBuildPlugin.getServerInstance().getLogger();
 
     public static void info(String msg) {
