@@ -18,14 +18,10 @@ package co.mcme.themedbuilds;
 import co.mcme.themedbuilds.database.Corner;
 import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
-import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import co.mcme.util.jackson.serialization.*;
-import com.mongodb.DBCursor;
-import com.mongodb.DBObject;
 import java.io.File;
-import java.io.IOException;
 import java.net.UnknownHostException;
 import lombok.Getter;
 import org.bson.types.ObjectId;
@@ -78,22 +74,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         }
         setupJackson();
         setupWorld();
-        loadThemes();
         serverInstance.getPluginManager().registerEvents(this, this);
-    }
-
-    private void loadThemes() {
-        DBCursor themeCursor = mongoUtil.getThemeCollection().find();
-        while (themeCursor.hasNext()) {
-            DBObject theme = themeCursor.next();
-            ThemedLogger.info(theme.toString());
-            try {
-                Theme themeZ = jsonMapper.readValue(theme.toString(), Theme.class);
-                ThemedLogger.info(themeZ.toString());
-            } catch (IOException ex) {
-                ThemedLogger.severe(ex.getMessage());
-            }
-        }
     }
 
     private void setupConfig() {
