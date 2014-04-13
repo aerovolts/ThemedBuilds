@@ -32,6 +32,7 @@ public class DatabaseUtil {
         Corner lookup = new Corner(0, zcoord);
         try {
             Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getThemeCollection().findOne(new BasicDBObject("corner", lookup.toString())).toString(), Theme.class);
+            theme.fetchLots();
             return theme;
         } catch (IOException ex) {
             ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
@@ -55,6 +56,7 @@ public class DatabaseUtil {
             DBCursor cursor = ThemedBuildPlugin.getMongoUtil().getThemeCollection().find();
             DBObject object = cursor.sort(new BasicDBObject("_id", -1)).limit(1).next();
             Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(object.toString(), Theme.class);
+            theme.fetchLots();
             return theme;
         } catch (IOException ex) {
             ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
