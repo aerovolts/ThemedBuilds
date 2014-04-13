@@ -20,6 +20,8 @@ import co.mcme.themedbuilds.utilities.DatabaseUtil;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
+import com.sk89q.worldedit.Vector;
+import com.sk89q.worldedit.regions.CuboidRegion;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -47,11 +49,12 @@ public class Theme {
     private int numlots;
     @Getter
     @Setter
-    private ArrayList<ObjectId> lotIds;
+    private ArrayList<ObjectId> lotIds = new ArrayList();
+    ;
     @Getter
     @Setter
     @JsonIgnore
-    private ArrayList<Lot> lots;
+    private ArrayList<Lot> lots = new ArrayList();
 
     public Theme() {
 
@@ -65,6 +68,13 @@ public class Theme {
             size = size + 1;
         }
         this.lotsize = size;
+    }
+
+    @JsonIgnore
+    public CuboidRegion getBounds() {
+        Vector pos1 = new Vector(corner.getX(), 0, corner.getZ());
+        Vector pos2 = new Vector(((corner.getX() + lotsize) * numlots) + (6 * (numlots - 1)), ThemedBuildPlugin.getTbWorld().getMaxHeight(), corner.getZ() + lotsize);
+        return new CuboidRegion(pos1, pos2);
     }
 
     @Override

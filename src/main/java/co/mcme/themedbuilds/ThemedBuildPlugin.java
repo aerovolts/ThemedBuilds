@@ -22,6 +22,7 @@ import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
 import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
+import co.mcme.themedbuilds.listeners.LotProtectionListener;
 import co.mcme.themedbuilds.utilities.DatabaseUtil;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import co.mcme.util.jackson.serialization.*;
@@ -64,6 +65,8 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     static Configuration pluginConfig;
     @Getter
     static MongoDBUtil mongoUtil;
+    @Getter
+    static Theme currentTheme;
 
     @Override
     public void onEnable() {
@@ -80,8 +83,16 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         setupJackson();
         setupWorld();
         serverInstance.getPluginManager().registerEvents(this, this);
+        serverInstance.getPluginManager().registerEvents(new LotProtectionListener(), this);
         getCommand("theme").setExecutor(new ThemeCommand());
         getCommand("turtle").setExecutor(new TurtleCommand());
+        currentTheme = DatabaseUtil.getCurrentTheme();
+        ThemedLogger.info(currentTheme.toString());
+    }
+
+    public void activateNewTheme(Theme theme) {
+        theme.fetchLots();
+        currentTheme = theme;
     }
 
     private void setupConfig() {
@@ -91,7 +102,8 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     }
 
     private void setupJackson() {
-        jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
+        jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false)
+                .configure(SerializationConfig.Feature.WRITE_EMPTY_JSON_ARRAYS, true);
         SimpleModule customSerializers = new SimpleModule("ThemedBuildsModule", new Version(1, 0, 0, null));
         customSerializers.addSerializer(ObjectId.class, new ObjectIdJsonSerializer());
         customSerializers.addDeserializer(ObjectId.class, new ObjectIdJsonDeserializer());
@@ -110,15 +122,15 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
             ChunkGenerator generator = new ThemedChunkGenerator();
             creator.generator(generator);
             tbWorld = creator.createWorld();
-            tbWorld.setPVP(false);
-            tbWorld.setSpawnFlags(false, false);
-            tbWorld.setGameRuleValue("doDaylightCycle", "false");
-            tbWorld.setGameRuleValue("doFireTick", "false");
-            tbWorld.setGameRuleValue("mobGriefing", "false");
-            tbWorld.setGameRuleValue("doMobSpawning", "false");
         } else {
             tbWorld = tbworld;
         }
+        tbWorld.setPVP(false);
+        tbWorld.setSpawnFlags(false, false);
+        tbWorld.setGameRuleValue("doDaylightCycle", "false");
+        tbWorld.setGameRuleValue("doFireTick", "false");
+        tbWorld.setGameRuleValue("mobGriefing", "false");
+        tbWorld.setGameRuleValue("doMobSpawning", "false");
     }
 
     @EventHandler
