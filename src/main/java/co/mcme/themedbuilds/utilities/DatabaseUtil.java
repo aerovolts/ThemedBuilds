@@ -21,6 +21,7 @@ import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.Theme;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import java.io.IOException;
 import java.util.logging.Level;
 import org.bson.types.ObjectId;
@@ -52,7 +53,8 @@ public class DatabaseUtil {
     public static Theme getCurrentTheme() {
         try {
             DBCursor cursor = ThemedBuildPlugin.getMongoUtil().getThemeCollection().find();
-            Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(cursor.sort(new BasicDBObject("_id", -1)).limit(1).toString(), Theme.class);
+            DBObject object = cursor.sort(new BasicDBObject("_id", -1)).limit(1).next();
+            Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(object.toString(), Theme.class);
             return theme;
         } catch (IOException ex) {
             ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
