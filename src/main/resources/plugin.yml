@@ -5,3 +5,7 @@ website: ${project.url}
 authors: [meggawatts]
 author: meggawatts
 depend: [WorldEdit]
+commands:
+    turtle:
+        description: Creates an ASCII turtle in chat.
+        usage: /turtle   
