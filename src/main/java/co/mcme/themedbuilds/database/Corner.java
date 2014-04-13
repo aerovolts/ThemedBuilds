@@ -17,6 +17,8 @@ package co.mcme.themedbuilds.database;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import java.io.IOException;
 import lombok.Getter;
 import lombok.Setter;
@@ -47,5 +49,9 @@ public class Corner {
             ThemedLogger.severe(ex.getMessage());
         }
         return null;
+    }
+
+    public DBObject toDBObject() {
+        return (DBObject) JSON.parse(toString());
     }
 }

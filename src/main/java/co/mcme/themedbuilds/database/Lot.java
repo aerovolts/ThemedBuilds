@@ -17,6 +17,8 @@ package co.mcme.themedbuilds.database;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.Vector2D;
@@ -126,5 +128,9 @@ public class Lot {
             ThemedLogger.severe(ex.getMessage());
         }
         return null;
+    }
+
+    public DBObject toDBObject() {
+        return (DBObject) JSON.parse(toString());
     }
 }

@@ -17,6 +17,8 @@ package co.mcme.themedbuilds.database;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
+import com.mongodb.DBObject;
+import com.mongodb.util.JSON;
 import java.io.IOException;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -31,9 +33,6 @@ public class Theme {
     @Getter
     @Setter
     private String name;
-    @Getter
-    @Setter
-    private boolean active;
     @Getter
     @Setter
     private Corner corner;
@@ -51,10 +50,9 @@ public class Theme {
 
     }
 
-    public Theme(String name, boolean active, int zstart, int size) {
+    public Theme(String name, int zstart, int size) {
         this._id = new ObjectId();
         this.name = name;
-        this.active = active;
         this.corner = new Corner(0, zstart);
         if ((size % 2) == 0) {
             size = size + 1;
@@ -70,5 +68,9 @@ public class Theme {
             ThemedLogger.severe(ex.getMessage());
         }
         return null;
+    }
+
+    public DBObject toDBObject() {
+        return (DBObject) JSON.parse(toString());
     }
 }
