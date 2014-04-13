@@ -33,6 +33,8 @@ public class MongoDBUtil {
     private DBCollection themeCollection;
     @Getter
     private DBCollection playerCollection;
+    @Getter
+    private DBCollection lotCollection;
 
     public MongoDBUtil(String hostname, int port, String username, char[] password, String database) throws UnknownHostException {
         client = new MongoClient(hostname, port);
@@ -49,6 +51,10 @@ public class MongoDBUtil {
         themeCollection = database.getCollection("themelist");
         if (themeCollection == null) {
             themeCollection = database.createCollection("themelist", null);
+        }
+        lotCollection = database.getCollection("lots");
+        if (lotCollection == null) {
+            lotCollection = database.createCollection("lots", null);
         }
         //playerCollection = database.getCollection("");
     }
