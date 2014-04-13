@@ -79,7 +79,7 @@ public class Lot {
         Vector pos2 = new Vector(corner.getX() + size, ThemedBuildPlugin.getTbWorld().getMaxHeight(), corner.getZ() + size);
         totalLotBounds = new CuboidRegion(pos1, pos2);
         pos1 = new Vector(corner.getX(), 0, corner.getZ());
-        pos2 = new Vector(corner.getX() + size, 30, corner.getZ() + size);
+        pos2 = new Vector(corner.getX() + size, 50, corner.getZ() + size);
         generateBounds = new CuboidRegion(pos1, pos2);
     }
 
