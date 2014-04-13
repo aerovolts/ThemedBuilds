@@ -51,6 +51,9 @@ public class Theme {
         this.name = name;
         this.active = active;
         this.corner = new Corner(0, zstart);
+        if ((size % 2) == 0) {
+            size = size + 1;
+        }
         this.lotsize = size;
     }
 
