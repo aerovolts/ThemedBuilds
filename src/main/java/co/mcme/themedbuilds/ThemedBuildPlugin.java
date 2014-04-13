@@ -31,6 +31,8 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -84,6 +86,15 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         saveConfig();
     }
 
+    @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	if (cmd.getName().equalsIgnoreCase("turtle")) { // If the player typed /basic then do the following...
+		sender.sendMessage("                  __    \n    ___         |  \"---.\n  .\"     \". -o)  |        |\n<|_______|/`   |__,---;\n  UU   UU ====|_____|");
+		return true;
+	} 
+	return false;
+    }
+    
     private void setupJackson() {
         jsonMapper = new ObjectMapper().configure(SerializationConfig.Feature.INDENT_OUTPUT, false);
         SimpleModule customSerializers = new SimpleModule("ThemedBuildsModule", new Version(1, 0, 0, null));
@@ -95,7 +106,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         customSerializers.addDeserializer(Location.class, new LocationJsonDeserializer());
         jsonMapper.registerModule(customSerializers);
     }
-
+    
     private void setupWorld() {
         World tbworld = serverInstance.getWorld("themedbuilds");
         if (tbworld == null) {
@@ -117,7 +128,8 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi")) {
+        if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi") || event.getPlayer().getName().equals("aeroblitz")) {
+            event.getPlayer().teleport(new Location(tbWorld, 0, 0, 0));
             Lot lot = new Lot();
             lot.setSize(21);
             Corner corner = new Corner();
