@@ -1,1 +1,1 @@
-Goals===* Dynamic Lot Generation* Lot protection* Robust database that allows: Complete user build lookup, and Warping to specific builds* Ability to schedule start and end with automatic locking
+[![Build Status](https://travis-ci.org/MCME/ThemedBuilds.svg?branch=master)](https://travis-ci.org/MCME/ThemedBuilds)Goals===* Dynamic Lot Generation* Lot protection* Robust database that allows: Complete user build lookup, and Warping to specific builds* Ability to schedule start and end with automatic locking
