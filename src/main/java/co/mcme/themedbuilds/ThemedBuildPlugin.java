@@ -71,6 +71,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
             mongoUtil = new MongoDBUtil(pluginConfig.getString("mongo.hostname", "localhost"), pluginConfig.getInt("mongo.port", 27017), pluginConfig.getString("mongo.username", "root"), (pluginConfig.getString("mongo.password", "")).toCharArray(), pluginConfig.getString("mongo.database", "themedbuilds"));
         } catch (UnknownHostException ex) {
             ThemedLogger.severe(ex.getMessage());
+            serverInstance.getPluginManager().disablePlugin(this);
         }
         setupJackson();
         setupWorld();
