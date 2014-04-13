@@ -22,10 +22,10 @@ import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
 import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
+import co.mcme.themedbuilds.utilities.DatabaseUtil;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import co.mcme.util.jackson.serialization.*;
 import java.io.File;
-import java.io.IOException;
 import java.net.UnknownHostException;
 import lombok.Getter;
 import org.bson.types.ObjectId;
@@ -125,22 +125,18 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi") || event.getPlayer().getName().equals("Aeroblitz")) {
             event.getPlayer().teleport(new Location(tbWorld, 0, 0, 0));
-            try {
-                Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getThemeCollection().findOne().toString(), Theme.class);
-                Lot lot = new Lot();
-                lot.setSize(theme.getLotsize());
-                Corner corner = theme.getCorner();
-                lot.setCorner(corner);
-                lot.generateBounds();
-                lot.generateDefaultLotTerrain(true);
-                Lot newlot = lot;
-                corner.setX(corner.getX() + lot.getSize() + 6);
-                newlot.setCorner(corner);
-                newlot.generateBounds();
-                newlot.generateDefaultLotTerrain(true);
-            } catch (IOException ex) {
-                ThemedLogger.severe(ex.getMessage());
-            }
+            Theme theme = DatabaseUtil.getCurrentTheme();
+            Lot lot = new Lot();
+            lot.setSize(theme.getLotsize());
+            Corner corner = theme.getCorner();
+            lot.setCorner(corner);
+            lot.generateBounds();
+            lot.generateDefaultLotTerrain(true);
+            Lot newlot = lot;
+            corner.setX(corner.getX() + lot.getSize() + 6);
+            newlot.setCorner(corner);
+            newlot.generateBounds();
+            newlot.generateDefaultLotTerrain(true);
         }
     }
 }
