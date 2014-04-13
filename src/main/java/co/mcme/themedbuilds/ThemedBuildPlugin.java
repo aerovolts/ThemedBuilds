@@ -27,8 +27,6 @@ import com.mongodb.DBObject;
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Getter;
 import org.bson.types.ObjectId;
 import org.bukkit.Location;
