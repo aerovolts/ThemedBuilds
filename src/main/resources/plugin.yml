@@ -8,4 +8,6 @@ depend: [WorldEdit]
 commands:
     turtle:
         description: Creates an ASCII turtle in chat.
-        usage: /turtle   
+        usage: /turtle
+    theme:
+        description: stuff

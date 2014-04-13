@@ -15,6 +15,7 @@
  */
 package co.mcme.themedbuilds;
 
+import co.mcme.themedbuilds.commands.ThemeCommand;
 import co.mcme.themedbuilds.database.Corner;
 import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
@@ -78,6 +79,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         setupJackson();
         setupWorld();
         serverInstance.getPluginManager().registerEvents(this, this);
+        getCommand("theme").setExecutor(new ThemeCommand());
     }
 
     private void setupConfig() {
