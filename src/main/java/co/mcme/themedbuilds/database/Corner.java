@@ -15,6 +15,9 @@
  */
 package co.mcme.themedbuilds.database;
 
+import co.mcme.themedbuilds.ThemedBuildPlugin;
+import co.mcme.themedbuilds.utilities.ThemedLogger;
+import java.io.IOException;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +29,23 @@ public class Corner {
     @Getter
     @Setter
     private int z;
-    
+
     public Corner() {
-        
+
+    }
+
+    public Corner(int x, int z) {
+        this.x = x;
+        this.z = z;
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return ThemedBuildPlugin.getJsonMapper().writeValueAsString(this);
+        } catch (IOException ex) {
+            ThemedLogger.severe(ex.getMessage());
+        }
+        return null;
     }
 }
