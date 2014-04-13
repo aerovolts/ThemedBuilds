@@ -111,8 +111,8 @@ public class Lot {
                 sign.setLine(1, ChatColor.DARK_BLUE + "" + ChatColor.BOLD + lotnumber);
                 sign.update(true);
             }
-
             ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY(), vec.getBlockZ()).setType(Material.GLOWSTONE);
+            isLotGenerated = true;
         }
     }
 }
