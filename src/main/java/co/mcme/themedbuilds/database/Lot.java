@@ -16,10 +16,12 @@
 package co.mcme.themedbuilds.database;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
+import co.mcme.themedbuilds.utilities.ThemedLogger;
 import com.sk89q.worldedit.BlockVector;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldedit.Vector2D;
 import com.sk89q.worldedit.regions.CuboidRegion;
+import java.io.IOException;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
@@ -114,5 +116,15 @@ public class Lot {
             ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY(), vec.getBlockZ()).setType(Material.GLOWSTONE);
             isLotGenerated = true;
         }
+    }
+
+    @Override
+    public String toString() {
+        try {
+            return ThemedBuildPlugin.getJsonMapper().writeValueAsString(this);
+        } catch (IOException ex) {
+            ThemedLogger.severe(ex.getMessage());
+        }
+        return null;
     }
 }
