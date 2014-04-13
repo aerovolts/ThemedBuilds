@@ -144,11 +144,17 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
             lot.setCorner(corner);
             lot.generateBounds();
             lot.generateDefaultLotTerrain(true);
+            lot.setOwner(serverInstance.getOfflinePlayer("meggawatts"));
+            currentTheme.getLots().add(lot);
+            currentTheme.getLotIds().add(lot.get_id());
             Lot newlot = lot;
             corner.setX(corner.getX() + lot.getSize() + 6);
             newlot.setCorner(corner);
             newlot.generateBounds();
             newlot.generateDefaultLotTerrain(true);
+            newlot.setOwner(serverInstance.getOfflinePlayer("loocekibmi"));
+            currentTheme.getLots().add(newlot);
+            currentTheme.getLotIds().add(newlot.get_id());
         }
     }
 }

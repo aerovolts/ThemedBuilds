@@ -16,6 +16,7 @@
 package co.mcme.themedbuilds.listeners;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
+import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import com.sk89q.worldedit.Vector;
@@ -34,6 +35,17 @@ public class LotProtectionListener implements Listener {
         ThemedLogger.info(currtheme.getBounds().toString());
         if (currtheme.getBounds().contains(new Vector(b.getX(), b.getY(), b.getZ()))) {
             // In current build
+            // Lot size * size 6 blocks inbetween
+            int lotindex = (int) Math.floor(b.getX() / (currtheme.getLotsize() + 6));
+            //This is dumb, instead calculate lot corner and fetch from db
+            Lot lot = currtheme.getLots().get(lotindex);
+            
+            if (lot.getOwner().equals(event.getPlayer())) {
+
+            } else {
+                event.setCancelled(true);
+                event.getPlayer().sendMessage(ChatColor.RED + "You are not allowed to build in " + lot.getOwner().getName() + "'s lot");
+            }
         } else {
             event.setCancelled(true);
             event.getPlayer().sendMessage(ChatColor.RED + "You are not in the build area for the current themedbuild");
