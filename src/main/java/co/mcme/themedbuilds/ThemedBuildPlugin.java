@@ -20,10 +20,12 @@ import co.mcme.themedbuilds.commands.TurtleCommand;
 import co.mcme.themedbuilds.database.Corner;
 import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
+import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.generator.ThemedChunkGenerator;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
 import co.mcme.util.jackson.serialization.*;
 import java.io.File;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import lombok.Getter;
 import org.bson.types.ObjectId;
@@ -33,8 +35,6 @@ import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -125,19 +125,22 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi") || event.getPlayer().getName().equals("Aeroblitz")) {
             event.getPlayer().teleport(new Location(tbWorld, 0, 0, 0));
-            Lot lot = new Lot();
-            lot.setSize(21);
-            Corner corner = new Corner();
-            corner.setX(0);
-            corner.setZ(0);
-            lot.setCorner(corner);
-            lot.generateBounds();
-            lot.generateDefaultLotTerrain(true);
-            Lot newlot = lot;
-            corner.setX(corner.getX() + lot.getSize() + 6);
-            newlot.setCorner(corner);
-            newlot.generateBounds();
-            newlot.generateDefaultLotTerrain(true);
+            try {
+                Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getThemeCollection().findOne().toString(), Theme.class);
+                Lot lot = new Lot();
+                lot.setSize(theme.getLotsize());
+                Corner corner = theme.getCorner();
+                lot.setCorner(corner);
+                lot.generateBounds();
+                lot.generateDefaultLotTerrain(true);
+                Lot newlot = lot;
+                corner.setX(corner.getX() + lot.getSize() + 6);
+                newlot.setCorner(corner);
+                newlot.generateBounds();
+                newlot.generateDefaultLotTerrain(true);
+            } catch (IOException ex) {
+                ThemedLogger.severe(ex.getMessage());
+            }
         }
     }
 }
