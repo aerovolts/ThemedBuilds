@@ -38,6 +38,7 @@ public class LotProtectionListener implements Listener {
             // Lot size * size 6 blocks inbetween
             int lotindex = (int) Math.floor(b.getX() / (currtheme.getLotsize() + 6));
             //This is dumb, instead calculate lot corner and fetch from db
+            //Looce sucks
             Lot lot = currtheme.getLots().get(lotindex);
             
             if (lot.getOwner().equals(event.getPlayer())) {
