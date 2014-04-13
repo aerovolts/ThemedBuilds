@@ -23,6 +23,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
 import java.io.IOException;
 import java.util.logging.Level;
+import org.bson.types.ObjectId;
 
 public class DatabaseUtil {
 
@@ -53,6 +54,16 @@ public class DatabaseUtil {
             DBCursor cursor = ThemedBuildPlugin.getMongoUtil().getThemeCollection().find();
             Theme theme = ThemedBuildPlugin.getJsonMapper().readValue(cursor.sort(new BasicDBObject("_id", -1)).limit(1).toString(), Theme.class);
             return theme;
+        } catch (IOException ex) {
+            ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+    }
+
+    public static Lot getLotById(ObjectId id) {
+        try {
+            Lot lot = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getLotCollection().findOne(new BasicDBObject("_id", id)).toString(), Lot.class);
+            return lot;
         } catch (IOException ex) {
             ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
         }
