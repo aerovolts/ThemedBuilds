@@ -89,7 +89,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 	if (cmd.getName().equalsIgnoreCase("turtle")) { // If the player typed /basic then do the following...
-		sender.sendMessage("                  __    \n    ___         |  \"---.\n  .\"     \". -o)  |        |\n<|_______|/`   |__,---;\n  UU   UU ====|_____|");
+		sender.sendMessage("§f                  __    \n    §a___         §f|  \"---.\n  §a.\"     \". §2-o)  §f|        |\n§2<§a|_______|§2/`   §f|__,---;\n  §2UU   UU §f====|_____|");
 		return true;
 	} 
 	return false;
@@ -128,7 +128,7 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi") || event.getPlayer().getName().equals("aeroblitz")) {
+        if (event.getPlayer().getName().equals("meggawatts") || event.getPlayer().getName().equals("loocekibmi") || event.getPlayer().getName().equals("Aeroblitz")) {
             event.getPlayer().teleport(new Location(tbWorld, 0, 0, 0));
             Lot lot = new Lot();
             lot.setSize(21);
