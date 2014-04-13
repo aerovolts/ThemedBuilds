@@ -47,6 +47,13 @@ public class Theme {
 
     }
 
+    public Theme(String name, boolean active, int zstart, int size) {
+        this.name = name;
+        this.active = active;
+        this.corner = new Corner(0, zstart);
+        this.lotsize = size;
+    }
+
     @Override
     public String toString() {
         try {
