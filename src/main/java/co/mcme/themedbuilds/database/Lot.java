@@ -23,8 +23,12 @@ import com.sk89q.worldedit.regions.CuboidRegion;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
+import org.bukkit.block.BlockState;
+import org.bukkit.block.Sign;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 public class Lot {
@@ -95,6 +99,19 @@ public class Lot {
                 ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMinimumY(), vec.getBlockZ()).setType(Material.BEDROCK);
             }
             Vector vec = generateBounds.getCenter();
+            int lotnumber = (int) Math.floor(corner.getX() / size) + 1;
+            Block signBlock = ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY() + 2, vec.getBlockZ());
+            ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY() + 1, vec.getBlockZ()).setType(Material.DIAMOND_BLOCK);
+            signBlock.setType(Material.SIGN_POST);
+            BlockState signState = signBlock.getState();
+
+            if (signState instanceof Sign) {
+                Sign sign = (Sign) signState;
+                sign.setLine(0, ChatColor.AQUA + "Lot Number:");
+                sign.setLine(1, ChatColor.DARK_BLUE + "" + ChatColor.BOLD + lotnumber);
+                sign.update(true);
+            }
+
             ThemedBuildPlugin.getTbWorld().getBlockAt(vec.getBlockX(), generateBounds.getMaximumY(), vec.getBlockZ()).setType(Material.GLOWSTONE);
         }
     }
