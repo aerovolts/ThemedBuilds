@@ -16,6 +16,7 @@
 package co.mcme.themedbuilds;
 
 import co.mcme.themedbuilds.commands.ThemeCommand;
+import co.mcme.themedbuilds.commands.TurtleCommand;
 import co.mcme.themedbuilds.database.Corner;
 import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.MongoDBUtil;
@@ -80,25 +81,13 @@ public class ThemedBuildPlugin extends JavaPlugin implements Listener {
         setupWorld();
         serverInstance.getPluginManager().registerEvents(this, this);
         getCommand("theme").setExecutor(new ThemeCommand());
+        getCommand("turtle").setExecutor(new TurtleCommand());
     }
 
     private void setupConfig() {
         pluginConfig = getConfig();
         getConfig().options().copyDefaults(true);
         saveConfig();
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (cmd.getName().equalsIgnoreCase("turtle")) { // If the player typed /basic then do the following...
-            sender.sendMessage("§f                  __    \n"
-                  + "    §a___         §f|  \"---.\n"
-                  + "  §a.\"     \". §2-o)  §f|        |\n"
-                  + "§2<§a|_______|§2/`   §f|__,---;\n"
-                  + "  §2UU   UU §f====|_____|");
-            return true;
-        }
-        return false;
     }
 
     private void setupJackson() {
