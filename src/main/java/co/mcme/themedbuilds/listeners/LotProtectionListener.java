@@ -16,6 +16,7 @@
 package co.mcme.themedbuilds.listeners;
 
 import co.mcme.themedbuilds.ThemedBuildPlugin;
+import co.mcme.themedbuilds.database.Corner;
 import co.mcme.themedbuilds.database.Lot;
 import co.mcme.themedbuilds.database.Theme;
 import co.mcme.themedbuilds.utilities.ThemedLogger;
@@ -38,15 +39,18 @@ public class LotProtectionListener implements Listener {
             // Lot size * size 6 blocks inbetween
             int lotindex = (int) Math.floor(b.getX() / (currtheme.getLotsize() + 6));
             //This is dumb, instead calculate lot corner and fetch from db
-            //Looce sucks
-            Lot lot = currtheme.getLots().get(lotindex);
-            
-            if (lot.getOwner().equals(event.getPlayer())) {
-
-            } else {
-                event.setCancelled(true);
-                event.getPlayer().sendMessage(ChatColor.RED + "You are not allowed to build in " + lot.getOwner().getName() + "'s lot");
+            int cornerz = lotindex * currtheme.getLotsize() + 6;
+            if (lotindex == 0) {
+                cornerz = 0;
             }
+            Corner corner = new Corner(currtheme.getCorner().getX(), cornerz);
+
+//            if (lot.getOwner().equals(event.getPlayer())) {
+//
+//            } else {
+//                event.setCancelled(true);
+//                event.getPlayer().sendMessage(ChatColor.RED + "You are not allowed to build in " + lot.getOwner().getName() + "'s lot");
+//            }
         } else {
             event.setCancelled(true);
             event.getPlayer().sendMessage(ChatColor.RED + "You are not in the build area for the current themedbuild");
