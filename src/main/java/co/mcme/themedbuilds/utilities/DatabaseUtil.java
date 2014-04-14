@@ -51,6 +51,16 @@ public class DatabaseUtil {
         return null;
     }
 
+    public static Lot getLotByCorner(Corner corner) {
+        try {
+            Lot lot = ThemedBuildPlugin.getJsonMapper().readValue(ThemedBuildPlugin.getMongoUtil().getLotCollection().findOne(new BasicDBObject("corner", corner)).toString(), Lot.class);
+            return lot;
+        } catch (IOException ex) {
+            ThemedLogger.getLog().log(Level.SEVERE, ex.getMessage(), ex);
+        }
+        return null;
+    }
+
     public static Theme getCurrentTheme() {
         try {
             DBCursor cursor = ThemedBuildPlugin.getMongoUtil().getThemeCollection().find();
